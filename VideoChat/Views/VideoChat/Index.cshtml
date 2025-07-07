@@ -1,0 +1,72 @@
+@{
+    ViewData["Title"] = "Video Chat";
+}
+
+<div class="glass-container">
+    <div class="hero-section">
+        <h1 class="glass-title">Welcome to Glass Video Chat</h1>
+        <p class="glass-subtitle">Connect with friends through secure video calls with our modern interface</p>
+        
+        <div class="action-buttons">
+            <button class="glass-btn primary" onclick="createNewRoom()">
+                <i class="fas fa-video"></i>
+                Create New Room
+            </button>
+            <div class="join-section">
+                <input type="text" id="roomIdInput" class="glass-input" placeholder="Enter Room ID" />
+                <button class="glass-btn secondary" onclick="joinRoom()">
+                    <i class="fas fa-sign-in-alt"></i>
+                    Join Room
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="features-section">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Secure</h3>
+            <p>End-to-end encrypted video calls</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-comment"></i>
+            </div>
+            <h3>Real-time Chat</h3>
+            <p>Instant messaging with video calls</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-desktop"></i>
+            </div>
+            <h3>HD Quality</h3>
+            <p>Crystal clear video and audio</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    function createNewRoom() {
+        window.location.href = '@Url.Action("Room", "VideoChat")';
+    }
+    
+    function joinRoom() {
+        const roomId = document.getElementById('roomIdInput').value.trim();
+        if (roomId) {
+            window.location.href = '@Url.Action("Room", "VideoChat")' + '?roomId=' + encodeURIComponent(roomId);
+        } else {
+            alert('Please enter a room ID');
+        }
+    }
+    
+    // Allow enter key to join room
+    document.getElementById('roomIdInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            joinRoom();
+        }
+    });
+</script>
